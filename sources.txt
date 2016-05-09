@@ -1,0 +1,7 @@
+Speaker Identification and Verification using Vector Quantization and Mel
+Frequency Cepstral Coefficients
+http://pakacademicsearch.com/pdf-files/eng/392/33-40%20Vol.%204,%20Issue%201%202012.pdf
+
+
+Original VQ paper
+http://www.ijcaonline.org/volume17/number1/pxc3872774.pdf
