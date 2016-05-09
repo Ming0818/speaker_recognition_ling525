@@ -5,3 +5,9 @@ http://pakacademicsearch.com/pdf-files/eng/392/33-40%20Vol.%204,%20Issue%201%202
 
 Original VQ paper
 http://www.ijcaonline.org/volume17/number1/pxc3872774.pdf
+
+GMM
+http://www.cs.toronto.edu/~frank/csc401/readings/ReynoldsRose.pdf
+
+Overview
+http://www.cs.joensuu.fi/pages/tkinnu/webpage/pdf/speaker_recognition_overview.pdf

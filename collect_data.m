@@ -30,7 +30,7 @@ for i=1:2
     audiowrite(strcat('data/',name, '/speak',int2str(i), '.wav'), y, recObj.SampleRate);
 end
 
-%sing for 10s
+%% sing for 10s
 for i=1:2
     input('Please sing for 10s about anything. Hit enter to start')
     recordblocking(recObj, 10);

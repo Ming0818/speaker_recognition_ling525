@@ -9,8 +9,9 @@ speaker2_samples = dir(speaker2);
 speaker1_mfccs = zeros(10, 12);
 speaker2_mfccs = zeros(10, 12);
 
-speaker1_vq = zeros(10, 8);
-speaker2_vq = zeros(10, 4);
+NUM_CENTROIDS = 4;
+speaker1_vq = zeros(10, NUM_CENTROIDS);
+speaker2_vq = zeros(10, NUM_CENTROIDS);
 
 for i=1:numel(speaker1_samples)
      if strcmp(speaker1_samples(i).name, '.') == 1 || strcmp(speaker1_samples(i).name, '..') == 1
@@ -20,7 +21,7 @@ for i=1:numel(speaker1_samples)
     ceps = mean(melcepst(y, fs));
     speaker1_mfccs(i-2,:) = ceps;
 end
-[M1 P1 DH1] =  vqsplit(speaker1_mfccs', 4);
+[M1 P1 DH1] =  kmeanlbg(speaker1_mfccs, NUM_CENTROIDS);
 
 for i=1:numel(speaker2_samples)
      if strcmp(speaker2_samples(i).name, '.') == 1 || strcmp(speaker2_samples(i).name, '..') == 1
@@ -29,7 +30,7 @@ for i=1:numel(speaker2_samples)
     [y, fs] = audioread(strcat(speaker2,'/', speaker2_samples(i).name));
     speaker2_mfccs(i-2,:) = mean(melcepst(y, fs));
 end
-[M2 P2 DH2] =  vqsplit(speaker2_mfccs', 4);
+[M2 P2 DH2] =  kmeanlbg(speaker2_mfccs, NUM_CENTROIDS);
 
 % we do see reasonable separation here, so vq should do well
 clf
@@ -40,6 +41,8 @@ title('MFCC along dimensions 1 and 6')
 plot(speaker1_mfccs(:,1), speaker1_mfccs(:,6), 'ro')
 plot(speaker2_mfccs(:,1), speaker2_mfccs(:,6), 'bo')
 
+M1 = M1';
+M2 = M2';
 % let's see what VQ looks like along some dimensions
 subplot(2, 2, 2)
 hold on

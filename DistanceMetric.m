@@ -22,11 +22,12 @@ for i=1:numel(speakers)
     end
     samples = dir(strcat(train_dir, '/', speaker));
     mfccs = zeros(numel(samples) - 2, 12);
+    total_mfccs = zeros(1, 12);
     for j=1:numel(samples)
         if strcmp(samples(j).name, '.') == 1 || strcmp(samples(j).name, '..') == 1
             continue
         end
-        % now we do the training
+        % now we extract the features
         [y, fs] = audioread(strcat(train_dir, '/', speaker, '/', samples(j).name));
         mfccs(j-2,:) = mean(melcepst(y, fs));
         all_speaker_mfccs(count_samples,:) = mean(melcepst(y, fs));
@@ -36,8 +37,8 @@ for i=1:numel(speakers)
     test_mfccs(i-2,:) = mfccs(end,:);
     
     % VQ stuff
-    [M P DH] = vqsplit(mfccs(1:end-1,:)', NUM_CENTROIDS);
-    vq_val(i-2,:,:) = M;
+    [M P DH] = kmeanlbg(mfccs(1:end-1,:), NUM_CENTROIDS);
+    vq_val(i-2,:,:) = M';
 end
 
 save('mfccs.mat', 'speaker_mfccs');
@@ -130,3 +131,5 @@ for i=1:num_speakers
         incorrect_vq_avg = incorrect_vq_avg + 1;
     end
 end
+
+%% we can also do K nearest neighbors for vq
